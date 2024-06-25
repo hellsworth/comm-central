@@ -1,0 +1,10 @@
+[package]
+name = "linux_sys_tray"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+ksni = "0.2.2"
+nserror = { version = "0.1.0", path = "../../../xpcom/rust/nserror" }
+nsstring = { version = "0.1.0", path = "../../../xpcom/rust/nsstring" }
+xpcom = { version = "0.1.0", path = "../../../xpcom/rust/xpcom" }
