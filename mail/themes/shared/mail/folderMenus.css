@@ -1,0 +1,100 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+/* ===== folderMenus.css ================================================
+  == Icons for menus which represent mail folder.
+  ======================================================================= */
+
+/* ::::: Folder icons for menus   ::::: */
+
+/* Folders */
+.folderMenuItem {
+  list-style-image: var(--icon-folder);
+
+  /* Newsgroup */
+  &[ServerType="nntp"] {
+    list-style-image: var(--icon-newsletter);
+  }
+
+  /* Feed folder */
+  &[IsFeedFolder="true"] {
+    list-style-image: var(--icon-folder-rss);
+  }
+
+  /* Special folders */
+
+  &[SpecialFolder="Inbox"] {
+    list-style-image: var(--icon-inbox);
+  }
+
+  &[SpecialFolder="Sent"] {
+    list-style-image: var(--icon-sent);
+  }
+
+  &[SpecialFolder="Outbox"] {
+    list-style-image: var(--icon-outbox);
+  }
+
+  &[SpecialFolder="Drafts"] {
+    list-style-image: var(--icon-draft);
+  }
+
+  &[SpecialFolder="Templates"] {
+    list-style-image: var(--icon-template);
+  }
+
+  &[SpecialFolder="Junk"] {
+    list-style-image: var(--icon-spam);
+  }
+
+  &[SpecialFolder="Trash"] {
+    list-style-image: var(--icon-trash);
+  }
+
+  &[SpecialFolder="Archive"] {
+    list-style-image: var(--icon-archive);
+  }
+
+  &[SpecialFolder="Virtual"] {
+    list-style-image: var(--icon-folder-filter);
+
+  }
+
+  /* IMAP/POP server */
+  &[IsServer="true"] {
+    list-style-image: var(--icon-mail);
+
+    /* IMAP/POP secure server */
+    &:is([ServerType="imap"], [ServerType="pop3"])[IsSecure="true"] {
+      list-style-image: var(--icon-mail-secure);
+    }
+
+    /* Local server */
+    &[ServerType="none"] {
+      list-style-image: var(--icon-folder);
+    }
+
+    /* News server */
+    &[ServerType="nntp"] {
+      list-style-image: var(--icon-globe);
+
+      /* Secure news server */
+      &[IsSecure="true"] {
+        list-style-image: var(--icon-globe-secure);
+      }
+    }
+
+    /* Feed server */
+    &[ServerType="rss"] {
+      list-style-image: var(--icon-rss);
+    }
+  }
+
+  &::part(icon),
+  & > .menu-iconic-left > .menu-iconic-icon {
+    -moz-context-properties: fill, stroke;
+    fill: color-mix(in srgb, currentColor 20%, transparent);
+    stroke: currentColor;
+  }
+}

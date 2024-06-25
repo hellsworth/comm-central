@@ -1,0 +1,52 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+notification {
+  border-inline-width: 1px;
+}
+
+:root[lwtheme]:not([lwt-tree]) {
+  #summary-toolbox {
+    background-image: var(--lwt-header-image) !important;
+    background-repeat: no-repeat;
+    background-position: right top !important;
+  }
+
+  #summary-toolbar {
+    background-color: var(--toolbar-bgcolor);
+  }
+}
+
+.item-attendees-description {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.item-attendees,
+.item-attendees-list-container {
+  height: 90px;
+  min-height: 50px;
+}
+
+.item-description-box {
+  height: 100%;
+}
+
+#calendar-summary-dialog {
+  min-height: 20em;
+
+  &:has(#calendar-event-summary-dialog.resize){
+    height: auto;
+  }
+}
+
+#calendar-event-summary-dialog {
+  overflow-y: scroll;
+}
+
+#calendar-summary-dialog-custom-button-footer {
+  margin-block: 10px;
+  margin-inline: 8px 10px;
+}

@@ -1,0 +1,23 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this file,
+ * You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+@import url(chrome://calendar/skin/shared/today-pane.css);
+
+#today-pane-splitter {
+  border-top-width: 0;
+  min-height: 0;
+  background-color: transparent;
+}
+
+#today-pane-panel > .sidebar-header {
+  height: 35px;
+}
+
+#today-none-box {
+  border-top: 1px solid ThreeDShadow;
+}
+
+#todaypane-new-event-button[disabled="true"] > .toolbarbutton-icon {
+  opacity: 0.4;
+}

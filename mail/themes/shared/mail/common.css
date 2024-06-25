@@ -1,0 +1,123 @@
+/* - This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this file,
+   - You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+@import url("chrome://global/skin/in-content/common-shared.css");
+@import url("chrome://messenger/skin/layout.css");
+
+:host,
+:root {
+  --in-content-button-height: 2.2em;
+  --in-content-button-border-radius: 3px;
+  --in-content-button-border-color: color-mix(in srgb, currentColor 9%, transparent);
+  --in-content-button-border-color-hover: color-mix(in srgb, currentColor 17%, transparent);
+  --in-content-deemphasized-text: color-mix(in srgb, currentColor 60%, transparent);
+  --in-content-sidebar-width: auto;
+  --menu-item-margin: 0 3px;
+
+  @media not (prefers-contrast) {
+    --in-content-box-info-background: light-dark(var(--layout-background-1), var(--layout-background-2));
+    --in-content-box-info-border: light-dark(var(--layout-border-0), transparent);
+    --in-content-button-background: light-dark(var(--grey-90-a10), rgba(249, 249, 250, 0.1));
+    --in-content-button-background-hover: light-dark(var(--grey-90-a20), rgba(249, 249, 250, 0.15));
+    --in-content-button-background-active: light-dark(var(--grey-90-a30), rgba(249, 249, 250, 0.2));
+    --in-content-categories-background: var(--layout-background-2);
+    --in-content-categories-border: var(--in-content-categories-background);
+    --in-content-item-selected-unfocused: light-dark(var(--color-gray-20), rgba(249, 249, 250, 0.05));
+    --in-content-item-hover: color-mix(in srgb, currentColor 12%, transparent);
+    --in-content-item-selected: color-mix(in srgb, currentColor 20%, transparent);
+    --in-content-item-selected-text: var(--in-content-page-color);
+    --in-content-primary-button-background: AccentColor;
+    --in-content-primary-button-background-hover: color-mix(in srgb, AccentColor 80%, black);
+    --in-content-primary-button-background-active: color-mix(in srgb, AccentColor 70%, black);
+    --in-content-primary-button-text-color: AccentColorText;
+    --in-content-focus-outline-color: AccentColor;
+    --focus-outline-color: AccentColor;
+  }
+
+  @media (prefers-contrast) {
+    --in-content-box-info-background: transparent;
+    --in-content-box-info-border: currentColor;
+    --in-content-categories-background: transparent;
+    --in-content-categories-border: currentColor;
+    --in-content-primary-button-background: SelectedItem;
+    --in-content-primary-button-background-hover: SelectedItem;
+    --in-content-primary-button-background-active: SelectedItem;
+    --in-content-primary-button-text-color: SelectedItemText;
+    --in-content-primary-button-text-color-active: SelectedItemText;
+  }
+}
+
+:root:not(.system-font-size) {
+  font: message-box;
+}
+
+#categories {
+  & > .category {
+    margin-inline: 6px;
+    border-color: transparent !important;
+
+    &[selected] {
+      font-weight: 500;
+    }
+  }
+
+  @media not (prefers-contrast) {
+    & > .category[selected] {
+      background-color: var(--in-content-button-background) !important;
+      color: unset;
+    }
+
+    &[keyboard-navigation="true"]:focus-visible > .category[current],
+    & > .category:focus-visible {
+      background-color: var(--in-content-item-selected) !important;
+      color: var(--in-content-item-selected-text);
+      outline: none;
+    }
+  }
+}
+
+.category-name {
+  font-size: 1.1rem;
+}
+
+.sidebar-footer-list {
+  margin-inline: 0;
+}
+
+.sidebar-footer-link {
+  border-color: transparent !important;
+}
+
+.sidebar-footer-icon {
+  margin: 10px;
+}
+
+.sidebar-footer-label {
+  margin: 0;
+}
+
+menulist > menupopup {
+  --panel-padding: 3px 0;
+
+  & menuseparator {
+    margin: 4px 8px;
+  }
+}
+
+menupopup {
+  --panel-border-color: var(--in-content-box-border-color);
+  --panel-background: var(--in-content-box-background);
+  --panel-color: var(--in-content-text-color);
+
+  &::part(content) {
+    border-radius: var(--arrowpanel-border-radius);
+  }
+
+  & > :is(menu, menuitem) {
+    margin: var(--menu-item-margin);
+    min-height: 24px;
+    padding-block: var(--menu-item-padding);
+    border-radius: 3px;
+  }
+}

@@ -1,0 +1,273 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+/* ===== mailWindow1.css ================================================
+  == Styles for the main Mail window in the default layout scheme.
+  ======================================================================= */
+
+@import url("chrome://messenger/skin/messenger.css");
+@import url("chrome://messenger/skin/primaryToolbar.css");
+@import url("chrome://messenger/skin/folderPane.css");
+@import url("chrome://messenger/skin/messageIcons.css");
+@import url("chrome://messenger/skin/shared/mailWindow1.css");
+
+#messengerBox {
+  background-color: -moz-Dialog;
+}
+
+/* ::::: thread decoration ::::: */
+
+/* ::::: group rows ::::: */
+treechildren::-moz-tree-row(dummy, hover),
+treechildren::-moz-tree-row(dummy, selected, focus) {
+  background-color: var(--row-grouped-header-bg-color-selected) !important;
+  color: inherit;
+}
+
+/* ..... tabs ..... */
+
+#tabpanelcontainer {
+  appearance: none;
+  color-scheme: light dark;
+}
+
+@media not (prefers-contrast) {
+  :root:not([lwtheme]) {
+    background-color: light-dark(var(--color-gray-10), var(--color-gray-90));
+  }
+
+  :root[lwtheme] {
+    background-color: var(--lwt-accent-color);
+
+    &:-moz-window-inactive {
+      background-color: var(--lwt-accent-color-inactive, var(--lwt-accent-color));
+    }
+  }
+
+  @media (-moz-windows-accent-color-in-titlebar: 0) {
+    :root[sizemode=normal][tabsintitlebar] {
+      border-top: 1px solid rgba(0, 0, 0, 0.7);
+
+      &[always-use-accent-color-for-window-border]:not(:-moz-window-inactive) {
+        border-top-color: AccentColor;
+      }
+    }
+    :root[tabsintitlebar]:not([lwtheme],:-moz-window-inactive) {
+      background-color: light-dark(var(--color-gray-20), var(--color-gray-90));
+    }
+  }
+
+  @media (-moz-windows-accent-color-in-titlebar) {
+    :root[tabsintitlebar]:not([lwtheme],:-moz-window-inactive) {
+      background-color: AccentColor;
+
+      & #navigation-toolbox {
+        color: AccentColorText;
+      }
+    }
+  }
+}
+
+@media (prefers-contrast) {
+  /* TODO: ActiveCaption and InactiveCaption don't seem to work. */
+  :root[tabsintitlebar]:not([lwtheme]) #navigation-toolbox {
+    background-color: ActiveCaption;
+    color: CaptionText;
+
+    &:-moz-window-inactive {
+      background-color: InactiveCaption;
+      color: InactiveCaptionText;
+    }
+  }
+}
+
+.titlebar-buttonbox,
+.titlebar-button {
+  appearance: none !important;
+}
+
+.titlebar-button {
+  border: none;
+  margin: 0 !important;
+  padding: 9px 17px;
+  -moz-context-properties: stroke;
+  stroke: currentColor;
+
+  @media not (prefers-contrast) {
+    @media (-moz-windows-accent-color-in-titlebar) {
+      :root:not([lwtheme]) &:not(:-moz-window-inactive) {
+        stroke: AccentColorText;
+      }
+    }
+  }
+
+  & > .toolbarbutton-icon {
+    display: inline-flex;
+    width: 12px;
+    height: 12px;
+
+    /* the 12px image renders a 10px icon, and the 10px upscaled gets rounded to 12.5, which
+     * rounds up to 13px, which makes the icon one pixel too big on 1.25dppx. Fix: */
+    @media (1.20dppx <= resolution <= 1.45dppx) {
+      .titlebar-button > .toolbarbutton-icon {
+        width: 11.5px;
+        height: 11.5px;
+      }
+    }
+  }
+
+  /* 175% dpi should result in the same device pixel sizes as 150% dpi. */
+  @media (1.70dppx <= resolution <= 1.95dppx) {
+    padding-inline: 14.1px;
+
+    & > .toolbarbutton-icon {
+      width: 10.8px;
+      height: 10.8px;
+    }
+  }
+
+  /* 225% dpi should result in the same device pixel sizes as 200% dpi. */
+  @media (2.20dppx <= resolution <= 2.45dppx) {
+    padding-inline: 15.3333px;
+
+    & > .toolbarbutton-icon {
+      width: 10.8px;
+      height: 10.8px;
+    }
+  }
+
+  /* 275% dpi should result in the same device pixel sizes as 250% dpi. */
+  @media (2.70dppx <= resolution <= 2.95dppx) {
+    /* NB: todo: this should also change padding on the buttons
+     * themselves, but without a device to test this on, it's
+     * impossible to know by how much. */
+    & > .toolbarbutton-icon {
+      width: 10.8px;
+      height: 10.8px;
+    }
+  }
+
+  @media not (prefers-contrast) {
+    &:hover {
+      background-color: light-dark(hsla(0, 0%, 0%, 0.12), hsla(0, 0%, 100%, 0.12));
+
+      &:active {
+        background-color: light-dark(hsla(0, 0%, 0%, 0.22), hsla(0, 0%, 100%, 0.22));
+      }
+    }
+
+    &:not(:hover) > .toolbarbutton-icon:-moz-window-inactive {
+      opacity: 0.5;
+    }
+  }
+
+  :root[lwtheme-image] & {
+    -moz-context-properties: unset;
+  }
+
+  @media (prefers-contrast) {
+    stroke: ButtonText;
+    background-color: Field;
+
+    &:hover {
+      stroke: SelectedItemText;
+      background-color: SelectedItem;
+    }
+  }
+}
+
+.titlebar-min {
+  /* Even though we use appearance: none, -moz-default-appearance is necessary
+   * for Windows 11's "snap layouts" feature, see
+   * DealWithWindowsAppearanceHacks */
+  -moz-default-appearance: -moz-window-button-minimize;
+  list-style-image: url("chrome://messenger/skin/window-controls/minimize.svg");
+  margin-inline-end: 2px;
+
+  :root[lwtheme-image] & {
+    list-style-image: url("chrome://messenger/skin/window-controls/minimize-themes.svg");
+  }
+
+  @media (prefers-contrast) {
+    list-style-image: url("chrome://messenger/skin/window-controls/minimize-highcontrast.svg");
+  }
+}
+
+.titlebar-max {
+  -moz-default-appearance: -moz-window-button-maximize;
+  list-style-image: url("chrome://messenger/skin/window-controls/maximize.svg");
+
+  :root[lwtheme-image] & {
+    list-style-image: url("chrome://messenger/skin/window-controls/maximize-themes.svg");
+  }
+
+  @media (prefers-contrast) {
+    list-style-image: url("chrome://messenger/skin/window-controls/maximize-highcontrast.svg");
+  }
+}
+
+.titlebar-restore {
+  -moz-default-appearance: -moz-window-button-restore;
+  list-style-image: url("chrome://messenger/skin/window-controls/restore.svg");
+
+  &:-moz-locale-dir(rtl) {
+    transform: scaleX(-1);
+  }
+
+  :root[lwtheme-image] & {
+    list-style-image: url("chrome://messenger/skin/window-controls/restore-themes.svg");
+  }
+
+  @media (prefers-contrast) {
+    list-style-image: url("chrome://messenger/skin/window-controls/restore-highcontrast.svg");
+  }
+}
+
+.titlebar-close {
+  -moz-default-appearance: -moz-window-button-close;
+  list-style-image: url("chrome://messenger/skin/window-controls/close.svg");
+
+  :root[lwtheme-image] & {
+    list-style-image: url("chrome://messenger/skin/window-controls/close-themes.svg");
+  }
+
+  @media (prefers-contrast) {
+    list-style-image: url("chrome://messenger/skin/window-controls/close-highcontrast.svg");
+  }
+
+  @media not (prefers-contrast) {
+    &:hover {
+      stroke: white;
+      background-color: light-dark(var(--color-red-60), var(--color-red-70));
+
+      &:hover:active {
+        background-color: light-dark(var(--color-red-50), var(--color-red-60));
+      }
+    }
+  }
+}
+
+#messagepanebox {
+  border-top-width: 0;
+  border-inline-start: none;
+}
+
+@media (prefers-contrast) {
+  :root:not([lwtheme])
+    treechildren::-moz-tree-image(selected) {
+    color: inherit;
+  }
+}
+
+:root:not([lwt-tree],[lwtheme]) #folderTree {
+  background-color: #fafafa;
+}
+
+/* Global notification popup */
+
+#notification-popup {
+  appearance: none;
+  background: transparent;
+  border: none;
+}
