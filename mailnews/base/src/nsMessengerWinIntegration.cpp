@@ -244,6 +244,9 @@ nsMessengerWinIntegration::UpdateUnreadCount(uint32_t unreadCount,
 }
 
 NS_IMETHODIMP
+nsMessengerUnixIntegration::LinuxSysTray() { return NS_OK; }
+
+NS_IMETHODIMP
 nsMessengerWinIntegration::OnExit() {
   if (mTrayIconShown) {
     ::Shell_NotifyIconW(NIM_DELETE, &sMailIconData);

@@ -57,6 +57,9 @@ nsMessengerOSXIntegration::UpdateUnreadCount(uint32_t unreadCount, const nsAStri
 }
 
 NS_IMETHODIMP
+nsMessengerUnixIntegration::LinuxSysTray() { return NS_OK; }
+
+NS_IMETHODIMP
 nsMessengerOSXIntegration::OnExit() {
   RestoreDockIcon();
   return NS_OK;
